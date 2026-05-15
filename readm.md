@@ -6,6 +6,7 @@ pilha.h  ----> Declaração das funções referentes ao histórico de operaçõe
 
 Menu de navegação interativo
 Struct --> Livro (codigo, titulo, autor, ano, quantidade)
+Struct --> Historico (operacao)
 
 Funcionalidades:
 - Cadastro de livros
