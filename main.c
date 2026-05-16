@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include "livros.h"
 
 int main()
 {
@@ -29,9 +30,11 @@ int main()
         {
         case 1:
             printf("Cadastrar livro\n");
+            cadastrarLivro(1, "O Senhor dos Anéis", "J.R.R. Tolkien", 1954, 5);
             break;
         case 2:
             printf("Listar livros\n");
+            listarLivros();
             break;
         case 3:
             printf("Buscar livro\n");

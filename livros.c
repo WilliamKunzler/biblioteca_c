@@ -1,4 +1,6 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "livros.h"
 
 struct livro {
@@ -8,28 +10,35 @@ struct livro {
     int ano_publicacao;
     int qtd_disp;
     struct livro *proximo;
-};
+} ;
 
-Livro *cadastrarLivro(int codigo, const char titulo[], const char autor[], int ano_publicacao, int qtd_disp) {
-    Livro *novoLivro = (Livro *)malloc(sizeof(Livro));
-
+int cadastrarLivro(int codigo, const char titulo[], const char autor[], int ano_publicacao, int qtd_disp) {
+    Livro *novoLivro = malloc(sizeof(Livro));
     if (novoLivro == NULL) {
         printf("Memória insuficiente para cadastrar o livro.\n");
-        exit(1);
+        return 0;
     }
 
     novoLivro->codigo = codigo;
     strncpy(novoLivro->titulo, titulo, sizeof(novoLivro->titulo) - 1);
+    novoLivro->titulo[sizeof(novoLivro->titulo) - 1] = '\0';
     strncpy(novoLivro->autor, autor, sizeof(novoLivro->autor) - 1);
-    novoLivro->ano_publicacao = ano_publicacao; 
+    novoLivro->autor[sizeof(novoLivro->autor) - 1] = '\0';
+    novoLivro->ano_publicacao = ano_publicacao;
     novoLivro->qtd_disp = qtd_disp;
-    
-    return novoLivro;
+    novoLivro->proximo = listarLivros;
+    listarLivros = novoLivro;
+
+    return 1;
 }
 
 void listarLivros(void) {
-    Livro *p;
-    for(p = 1; p != NULL; p = p->proximo) {
+    if (listarLivros == NULL) {
+        printf("Nenhum livro cadastrado.\n");
+        return;
+    }
+
+    for (Livro *p = listarLivros; p != NULL; p = p->proximo) {
         printf("Código: %d\n", p->codigo);
         printf("Título: %s\n", p->titulo);
         printf("Autor: %s\n", p->autor);
